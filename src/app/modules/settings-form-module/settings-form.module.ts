@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SettingsFormComponent } from './components/settingsFormComponent/settings-form.component';
-
-
+import { SettingsFormComponent } from './components/setting-form-component/settings-form.component';
 
 @NgModule({
   declarations: [SettingsFormComponent],
