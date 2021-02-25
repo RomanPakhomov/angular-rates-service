@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { select, Store } from "@ngrx/store";
 import { UserService } from "src/app/services/user.service";
-import { EUserActions, GetUser, GetUsers, GetUsersSuccess, GetUserSuccess, SaveUser } from "../actions/user.actions";
+import { EUserActions, GetUser, GetUsers, GetUsersSuccess, GetUserSuccess, RemoveUserOption, SaveUser } from "../actions/user.actions";
 import { AppState } from "../state/app.state";
 import { switchMap, map, withLatestFrom } from "rxjs/operators";
 import { UserModel } from "src/app/types/user.type";
@@ -10,7 +10,7 @@ import { of } from "rxjs";
 import { selectUserList } from "../selectors/user.selector";
 
 @Injectable()
-export class OptionEffects {
+export class UserEffects {
     constructor(
         private actions: Actions,
         private userService: UserService,
@@ -28,7 +28,7 @@ export class OptionEffects {
         map(action => action.payload),
         withLatestFrom(this.store.pipe(select(selectUserList))),
         switchMap(([id, users]) => {
-            const selectedUser = users.filter((user: UserModel) => user.id === +id)[0];
+            const selectedUser = users.find((user: UserModel) => user.id === Number(id));
             return of({selectedUser, id});
         }),
         switchMap(({selectedUser, id}) => {
@@ -50,5 +50,24 @@ export class OptionEffects {
             const updatedUsers = users.map(userItem => userItem.id === user.id ? user : userItem)
             return of(new GetUsersSuccess(updatedUsers))
         })
+    ))
+
+    removeUserOption = createEffect(() => this.actions.pipe(
+        ofType<RemoveUserOption>(EUserActions.removeUserOption),
+        map(action => action.payload),
+        withLatestFrom(this.store.pipe(select(selectUserList))),
+        switchMap(([{ userId, optionId }, users]) => {
+            this.userService.removeUserOption(userId, optionId)
+            const updatedUsers = users.map(user => {
+                if(user.id === userId){
+                    return {
+                        ...user,
+                        options: user.options.filter(option => option !== optionId)
+                    }
+                }
+                return user;
+            })
+            return of(new GetUsersSuccess(updatedUsers))
+        }),
     ))
 }

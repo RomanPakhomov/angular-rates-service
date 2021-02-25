@@ -1,1 +1,47 @@
-<p>main-form works!</p>
+<div class="card">
+    <div class="card-body">
+        <div class="selected-options mb-3">
+            <h3>Подключенные услуги</h3>
+            <div>
+                <input type="email" class="form-control form-control-sm mb-2" id="exampleFormControlInput1" placeholder="name@example.com">
+            </div>
+            <div class="option-list">
+                <div *ngFor="let option of selectedOptions" class="option">
+                    <div class="option-description">
+                        <div class="date mr-1">date</div>
+                        <div class="option-title mr-1">{{ option.title }}</div>
+                    </div>
+                    <div class="option-action">
+                        <div class="option-cost mr-1">{{ option.cost }} руб</div> 
+                        <div class="cancel-option" (click)="removeUserOption(option.id)">
+                            x
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="unselected-options">
+            <h3>Доступные услуги</h3>
+            <form *ngIf="form" [formGroup]="form" (ngSubmit)="saveOptions()">
+                <div class="option-list mb-3">
+                    <div *ngFor="let option of optionsAsArray.controls; let i = index" class="option">
+                        <div class="option-description mr-1">
+                            <input class="form-check-input" type="checkbox" [formControlName]="i">
+                            <label class="form-check-label" formArrayName="options">
+                                {{ unselectedOptions ? unselectedOptions[i].title : null }} 
+                            </label> 
+                        </div>
+                        <div class="option-cost">
+                            <!-- {{ unselectedOptions[i].cost }} руб -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-container">
+                    <button type="button" (click)="saveOptions()" class="btn btn-success btn-sm">Подключить услуги</button>
+                </div>
+            </form>
+            
+        </div>
+    </div>    
+</div>

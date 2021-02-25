@@ -13,7 +13,7 @@ export class UserService {
         {
             id: 0,
             fullName: 'Пахомов Роман Романович',
-            username: 'rpakhomov',
+            userName: 'rpakhomov',
             email: 'rpakhomov@gmail.com',
             phone: '79390567708',
             notifications: true,
@@ -22,7 +22,7 @@ export class UserService {
         {
             id: 1,
             fullName: 'Иванов Илья Владимирович',
-            username: 'iivanov',
+            userName: 'iivanov',
             email: 'iivanov@gmail.com',
             phone: '79390567709',
             notifications: true,
@@ -31,7 +31,7 @@ export class UserService {
         {
             id: 2,
             fullName: 'Аникина Екатерина Александровна',
-            username: 'aekaterina',
+            userName: 'aekaterina',
             email: 'aekaterina@gmail.com',
             phone: '79390567710',
             notifications: true,
@@ -47,10 +47,22 @@ export class UserService {
         return of(this.users.filter((user: UserModel) => user.id === id)[0]);
     }
 
-    saveUser(user: UserModel):boolean {
+    removeUserOption(userId: number, optionId: number): void {
+        this.users.map(user => {
+            if(user.id === userId){
+                return {
+                    ...user,
+                    options: user.options.filter(option => option !== optionId)
+                }
+            }
+            return user;
+        })
+    }
+
+    saveUser(user: UserModel): boolean {
         try {
             this.users.map(item => {
-                if(item.username === user.username){
+                if(item.userName === user.userName){
                     return user;
                 } else {
                     return item;

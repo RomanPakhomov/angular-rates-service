@@ -4,16 +4,21 @@ import { MainFormComponent } from './components/main-form-component/main-form.co
 import { MainFormRoutingModule } from './main-form-routing.module';
 import { UserListComponent } from './components/user-list-component/user-list.component';
 import { MainFormPageComponent } from './components/main-form-page/main-form-page.component';
+import { PipeOptionsSumm } from 'src/app/pipes/pipe-options-summ.pipe';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     MainFormComponent,
     UserListComponent,
-    MainFormPageComponent
+    MainFormPageComponent,
+    PipeOptionsSumm
   ],
   imports: [
     CommonModule,
-    MainFormRoutingModule
+    MainFormRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class MainFormModule { }

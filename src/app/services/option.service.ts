@@ -12,27 +12,27 @@ export class OptionService {
         {
             id: 0,
             title: 'Мобильный помощник',
-            cost: '0'
+            cost: 0
         },
         {
             id: 1,
             title: 'Определитель номера',
-            cost: '1000'
+            cost: 1000
         },
         {
             id: 2,
             title: 'Служба коротких сообщений',
-            cost: '0'
+            cost: 0
         },
         {
             id: 3,
             title: 'Мобильный интернет',
-            cost: '200'
+            cost: 200
         },
         {
             id: 4,
             title: 'Конференц-связь',
-            cost: '0'
+            cost: 0
         }
     ];
 

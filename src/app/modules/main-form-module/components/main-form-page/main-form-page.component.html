@@ -1,8 +1,8 @@
 <div class="row">
     <div class="col-md-4">
-        <app-user-list [users]="users | async"></app-user-list>
+        <app-user-list [users]="users | async" [options]="options | async"></app-user-list>
     </div>
     <div class="col-md-8">
-        <app-main-form [options]="options | async"></app-main-form>
+        <app-main-form [options]="options | async" [user]="user | async"></app-main-form>
     </div>
 </div>

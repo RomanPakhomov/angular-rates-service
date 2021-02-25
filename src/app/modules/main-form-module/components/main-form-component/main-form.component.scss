@@ -1,0 +1,32 @@
+.option{
+    display: flex;
+}
+.selected-options{
+    .option{
+        display: flex;
+        justify-content: space-between;
+
+        .option-description{
+            display: flex;
+        }
+
+        .option-action{
+            display: flex;
+        }
+    }
+}
+.unselected-options{
+    .option-list{
+        padding-left: 20px;
+
+        .option{
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+
+    .button-container{
+        display: flex;
+        justify-content: flex-end;
+    }
+}
