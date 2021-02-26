@@ -1,5 +1,6 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Observable, of, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { forbittenFieldValidator } from 'src/app/shared/validators/forbitten-field-validator.directive';
@@ -10,19 +11,22 @@ import { notifycationTypeId, UserModel } from 'src/app/types/user.type';
   templateUrl: './settings-form.component.html',
   styleUrls: ['./settings-form.component.scss']
 })
-export class SettingsFormComponent implements OnInit {
+export class SettingsFormComponent implements OnInit, OnDestroy {
   @Input() user: UserModel | null = null;
   form: FormGroup = new FormGroup({});
   notificationsSubscription: Subscription | null = null;
   notificationsTypeSubscription: Subscription | null = null;
   showNotifycationsWays: boolean = false;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private router: Router) {
   }
 
   ngOnInit(): void {
+    if(!this.user?.fullName){
+      console.log('test')
+      this.router.navigate(['/']);
+    }
     this.createForm()
-    this.createFormListeners()
   }
 
   createForm(): void {
@@ -58,6 +62,7 @@ export class SettingsFormComponent implements OnInit {
       notificationsType: new FormControl(this.user?.notificationsType)
     })
     this.showNotifycationsWays = Boolean(this.user?.notifications);
+    this.createFormListeners()
   }
 
   get userName(): AbstractControl | null {
@@ -77,6 +82,7 @@ export class SettingsFormComponent implements OnInit {
       this.showNotifycationsWays = value;
     });
     this.notificationsTypeSubscription = this.form.controls.notificationsType.valueChanges.subscribe(value => {
+      console.log('test', value)
       switch (value) {
         case notifycationTypeId.email:
           this.form.controls.email.enable();
@@ -98,6 +104,11 @@ export class SettingsFormComponent implements OnInit {
 
   reset(): void {
     this.createForm()
+  }
+
+  ngOnDestroy(): void {
+    this.notificationsSubscription?.unsubscribe();
+    this.notificationsTypeSubscription?.unsubscribe();
   }
 
 }
