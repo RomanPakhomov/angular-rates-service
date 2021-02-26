@@ -7,7 +7,8 @@ export enum EUserActions {
     getUsers = 'getUsers',
     getUsersSuccess = 'getUserssuccess',
     saveUser = 'saveUser',
-    removeUserOption = 'removeUserOption'
+    removeUserOption = 'removeUserOption',
+    saveUserOptions = 'saveUserOptions'
 }
 
 export class GetUser implements Action {
@@ -39,9 +40,15 @@ export class RemoveUserOption implements Action {
     constructor(public payload: {userId: number; optionId: number}) {}
 }
 
+export class SaveUserOptions implements Action {
+    public readonly type = EUserActions.saveUserOptions;
+    constructor(public payload: {userId: number, optionsId: number[]}) {}
+}
+
 export type UserActions = GetUser
     | GetUserSuccess
     | GetUsers
     | GetUsersSuccess
     | SaveUser
-    | RemoveUserOption;
+    | RemoveUserOption
+    | SaveUserOptions;

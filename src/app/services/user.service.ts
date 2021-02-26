@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
-import { UserModel } from "../types/user.type";
+import { notifycationTypeId, UserModel } from "../types/user.type";
+
 
 @Injectable()
 export class UserService {
@@ -17,6 +18,7 @@ export class UserService {
             email: 'rpakhomov@gmail.com',
             phone: '79390567708',
             notifications: true,
+            notificationsType: notifycationTypeId.email,
             options: [1]
         },
         {
@@ -26,6 +28,7 @@ export class UserService {
             email: 'iivanov@gmail.com',
             phone: '79390567709',
             notifications: true,
+            notificationsType: notifycationTypeId.phone,
             options: [1,2]
         },
         {
@@ -35,6 +38,7 @@ export class UserService {
             email: 'aekaterina@gmail.com',
             phone: '79390567710',
             notifications: true,
+            notificationsType: notifycationTypeId.email,
             options: [2,3,4]
         }
     ]
@@ -53,6 +57,18 @@ export class UserService {
                 return {
                     ...user,
                     options: user.options.filter(option => option !== optionId)
+                }
+            }
+            return user;
+        })
+    }
+
+    saveuserOptions(userId: number, optionsId: number[]): void {
+        this.users.map(user => {
+            if(user.id === userId){
+                return {
+                    ...user,
+                    optionsId
                 }
             }
             return user;

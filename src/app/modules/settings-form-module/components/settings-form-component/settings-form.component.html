@@ -1,5 +1,65 @@
 <div class="card">
   <div class="card-body">
-    example
+    <form [formGroup]="form" (ngSubmit)="submit()" class="user-form">
+      <div class="row no-gutters mb-2">
+        <div class="col-4">
+          ФИО
+        </div>
+        <div class="col-8">
+          <input formControlName="name" class="w-100" type="text">
+        </div>
+      </div>
+      <div class="row no-gutters mb-4">
+        <div class="col-4">
+          Псевдоним
+        </div>
+        <div class="col-8">
+          <input formControlName="userName" class="w-100" [class.is-invalid]="userName && (userName.invalid && (userName.dirty || userName.touched))" type="text">
+          <div *ngIf="userName && (userName.invalid && (userName.dirty || userName.touched))" class="invalid-feedback">
+            <span *ngIf="userName?.errors?.required">Введите псевдоним</span>
+          </div>
+        </div>
+      </div>
+      <div class="row no-gutters mb-4">
+        <div class="col-4">
+          <div class="form-check">
+            <input formControlName="notifications" type="checkbox" id="notification" class="form-check-input notification">
+            <label class="form-check-label" for="notification">Оповещения</label>
+          </div>
+        </div>
+        <div *ngIf="showNotifycationsWays" class="col-8">
+          <div class="row no-gutters mb-2">
+            <div class="col-4">
+              <input formControlName="notificationsType" name="notificationsType" value="email" type="radio" class="email mr-1">
+              <label for="email">Email</label>
+            </div>
+            <div class="col-8">
+              <input formControlName="email" type="text" class="w-100" [class.is-invalid]="email && (email.invalid && (email.dirty || email.touched))">
+              <div *ngIf="email && (email.invalid && (email.dirty || email.touched))" class="invalid-feedback">
+                <span *ngIf="email?.errors?.required">Введите email </span>
+                <span *ngIf="!email?.errors?.required && email?.errors?.forbiddenField">Некорректный формат</span>
+              </div>
+            </div>
+          </div>
+          <div class="row no-gutters mb-2">
+            <div class="col-4">
+              <input formControlName="notificationsType" name="notificationsType" value="phone" type="radio" class="phone mr-1">
+              <label for="phone">Телефон</label>
+            </div>
+            <div class="col-8">
+              <input formControlName="phone" type="text" class="w-100" [class.is-invalid]="phone && (phone.invalid && (phone.dirty || phone.touched))">
+              <div *ngIf="phone && (phone.invalid && (phone.dirty || phone.touched))" class="invalid-feedback">
+                <span *ngIf="phone?.errors?.required">Введите телефон</span>
+                <span *ngIf="!phone?.errors?.required && phone?.errors?.forbiddenField">Некорректный формат</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="button-container">
+        <button type="button" (click)="reset()" class="btn btn-danger btn-sm">Отменить изменения</button>
+        <button type="button" (click)="submit()" class="btn btn-success btn-sm">Сохранить</button>
+      </div>
+    </form>
   </div>
 </div>

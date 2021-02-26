@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { select, Store } from "@ngrx/store";
 import { UserService } from "src/app/services/user.service";
-import { EUserActions, GetUser, GetUsers, GetUsersSuccess, GetUserSuccess, RemoveUserOption, SaveUser } from "../actions/user.actions";
+import { EUserActions, GetUser, GetUsers, GetUsersSuccess, GetUserSuccess, RemoveUserOption, SaveUser, SaveUserOptions } from "../actions/user.actions";
 import { AppState } from "../state/app.state";
 import { switchMap, map, withLatestFrom } from "rxjs/operators";
 import { UserModel } from "src/app/types/user.type";
@@ -69,5 +69,24 @@ export class UserEffects {
             })
             return of(new GetUsersSuccess(updatedUsers))
         }),
+    ))
+
+    saveUserOptions = createEffect(() => this.actions.pipe(
+        ofType<SaveUserOptions>(EUserActions.saveUserOptions),
+        map(action => action.payload),
+        withLatestFrom(this.store.pipe(select(selectUserList))),
+        switchMap(([{ userId, optionsId }, users]) => {
+            this.userService.saveuserOptions(userId, optionsId);
+            const updatedUsers = users.map(user => {
+                if(user.id === userId){
+                    return {
+                        ...user,
+                        options: optionsId
+                    }
+                }
+                return user
+            })
+            return of(new GetUsersSuccess(updatedUsers))
+        })
     ))
 }

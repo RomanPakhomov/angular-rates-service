@@ -3,10 +3,10 @@
         <div class="selected-options mb-3">
             <h3>Подключенные услуги</h3>
             <div>
-                <input type="email" class="form-control form-control-sm mb-2" id="exampleFormControlInput1" placeholder="name@example.com">
+                <input [formControl]="optionName" type="text" class="form-control form-control-sm mb-2">
             </div>
             <div class="option-list">
-                <div *ngFor="let option of selectedOptions" class="option">
+                <div *ngFor="let option of filteredSelectedOptions" class="option">
                     <div class="option-description">
                         <div class="date mr-1">date</div>
                         <div class="option-title mr-1">{{ option.title }}</div>
@@ -24,15 +24,15 @@
             <h3>Доступные услуги</h3>
             <form *ngIf="form" [formGroup]="form" (ngSubmit)="saveOptions()">
                 <div class="option-list mb-3">
-                    <div *ngFor="let option of optionsAsArray.controls; let i = index" class="option">
+                    <div *ngFor="let option of optionsAsArray.controls; let i = index" class="option" formArrayName="options">
                         <div class="option-description mr-1">
-                            <input class="form-check-input" type="checkbox" [formControlName]="i">
-                            <label class="form-check-label" formArrayName="options">
-                                {{ unselectedOptions ? unselectedOptions[i].title : null }} 
+                            <input class="form-check-input" type="checkbox" [formControlName]="i" [id]="i">
+                            <label class="form-check-label" [for]="i">
+                                {{ filteredUnselectedOptions ? filteredUnselectedOptions[i].title : null }} 
                             </label> 
                         </div>
                         <div class="option-cost">
-                            <!-- {{ unselectedOptions[i].cost }} руб -->
+                            {{ filteredUnselectedOptions ? filteredUnselectedOptions[i].cost + ' руб' : null }}
                         </div>
                     </div>
                 </div>

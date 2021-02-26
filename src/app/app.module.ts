@@ -23,8 +23,6 @@ import { appReducers } from './store/reducers/app.reducers';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
     StoreModule.forRoot(appReducers),
     EffectsModule.forRoot([UserEffects, OptionEffects]),
     StoreRouterConnectingModule.forRoot({stateKey: 'router'}),

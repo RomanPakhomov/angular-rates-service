@@ -1,0 +1,15 @@
+.user-form{
+    .invalid-feedback {
+        display: block;
+    }
+    .is-invalid{
+        border-color: #dc3545;
+        background-color: #ffebeb;
+        border-width: thin;
+        border-radius: 2px;
+    }
+    .button-container{
+        display: flex;
+        justify-content: space-between;
+    }
+}
