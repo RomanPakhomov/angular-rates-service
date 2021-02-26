@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { UserModel } from 'src/app/types/user.type';
 
 @Component({
   selector: 'app-settings-form',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./settings-form.component.scss']
 })
 export class SettingsFormComponent implements OnInit {
+  @Input() user: UserModel | null = null;
 
   constructor() { }
 
