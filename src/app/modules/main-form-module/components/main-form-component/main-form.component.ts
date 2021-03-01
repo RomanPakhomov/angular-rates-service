@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { GetUser, RemoveUserOption, SaveUserOptions } from 'src/app/store/actions/user.actions';
@@ -9,7 +9,8 @@ import { UserModel } from 'src/app/types/user.type';
 @Component({
   selector: 'app-main-form',
   templateUrl: './main-form.component.html',
-  styleUrls: ['./main-form.component.scss']
+  styleUrls: ['./main-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MainFormComponent implements OnInit, OnChanges {
   @Input() options: OptionModel[] | null = [];

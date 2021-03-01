@@ -4,8 +4,8 @@ import { OptionModel } from "../types/option.type";
 
 @Injectable()
 export class OptionService {
+    // Mock options service
 
-    // TODO
     private readonly getOptionsUrl = 'TODO'
 
     private options: OptionModel[] = [

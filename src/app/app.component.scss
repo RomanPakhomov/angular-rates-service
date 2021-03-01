@@ -1,0 +1,24 @@
+::ng-deep {
+    .card-body{
+        padding: 0.5rem;
+    }
+
+    .navbar, .container {
+        justify-content: flex-start !important;
+    }
+
+    .navbar {
+        a{
+            color: #ffff;
+            text-decoration: none;
+        }
+    }
+}
+
+html, body, .body {
+    height: 100% !important;
+}
+
+.body{
+    padding-top: 4rem;
+}

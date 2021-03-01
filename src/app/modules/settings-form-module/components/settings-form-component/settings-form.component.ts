@@ -1,15 +1,17 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, of, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { UserService } from 'src/app/services/user.service';
 import { forbittenFieldValidator } from 'src/app/shared/validators/forbitten-field-validator.directive';
 import { notifycationTypeId, UserModel } from 'src/app/types/user.type';
 
 @Component({
   selector: 'app-settings-form',
   templateUrl: './settings-form.component.html',
-  styleUrls: ['./settings-form.component.scss']
+  styleUrls: ['./settings-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SettingsFormComponent implements OnInit, OnDestroy {
   @Input() user: UserModel | null = null;
@@ -18,7 +20,7 @@ export class SettingsFormComponent implements OnInit, OnDestroy {
   notificationsTypeSubscription: Subscription | null = null;
   showNotifycationsWays: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private userService: UserService) {
   }
 
   ngOnInit(): void {
@@ -31,7 +33,7 @@ export class SettingsFormComponent implements OnInit, OnDestroy {
 
   createForm(): void {
     this.form = this.formBuilder.group({
-      name: new FormControl(
+      fullName: new FormControl(
         { value: this.user?.fullName, disabled: true },
         [ Validators.maxLength(200) ]
       ),
@@ -52,7 +54,7 @@ export class SettingsFormComponent implements OnInit, OnDestroy {
         { value: this.user?.phone, disabled: this.user?.notificationsType !== notifycationTypeId.phone },
         [
           Validators.required,
-          Validators.minLength(4),
+          Validators.minLength(11),
           Validators.maxLength(11),
           forbittenFieldValidator(/^89/),
           forbittenFieldValidator(/[0-9]/)
@@ -98,8 +100,12 @@ export class SettingsFormComponent implements OnInit, OnDestroy {
   }
   
   submit(): void {
-    console.log(this.user)
-    console.log(this.form)
+    console.log('save user');
+    this.userService.saveUser({
+      id: this.user?.id,
+      options: this.user?.options,
+      ...this.form.getRawValue()
+    })
   }
 
   reset(): void {

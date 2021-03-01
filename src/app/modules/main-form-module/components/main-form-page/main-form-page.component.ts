@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { GetOptions } from 'src/app/store/actions/option.actions';
@@ -12,7 +12,8 @@ import { UserModel } from 'src/app/types/user.type';
 @Component({
   selector: 'app-main-form-page',
   templateUrl: './main-form-page.component.html',
-  styleUrls: ['./main-form-page.component.scss']
+  styleUrls: ['./main-form-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MainFormPageComponent implements OnInit {
   users: Observable<UserModel[]> = this.state.select(selectUserList);
