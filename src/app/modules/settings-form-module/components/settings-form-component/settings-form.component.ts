@@ -1,10 +1,13 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable, of, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
 import { forbittenFieldValidator } from 'src/app/shared/validators/forbitten-field-validator.directive';
+import { GetUser, GetUsers } from 'src/app/store/actions/user.actions';
+import { AppState } from 'src/app/store/state/app.state';
 import { notifycationTypeId, UserModel } from 'src/app/types/user.type';
 
 @Component({
@@ -19,30 +22,35 @@ export class SettingsFormComponent implements OnInit, OnDestroy {
   notificationsSubscription: Subscription | null = null;
   notificationsTypeSubscription: Subscription | null = null;
   showNotifycationsWays: boolean = false;
+  disabledCancel: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private userService: UserService) {
-  }
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private userService: UserService,
+    private toastr: ToastrService,
+    private state: Store<AppState>
+  ) {}
 
   ngOnInit(): void {
     if(!this.user?.fullName){
-      console.log('test')
       this.router.navigate(['/']);
     }
     this.createForm()
   }
 
-  createForm(): void {
+  createForm(user: UserModel | null = this.user): void {
     this.form = this.formBuilder.group({
       fullName: new FormControl(
-        { value: this.user?.fullName, disabled: true },
+        { value: user?.fullName, disabled: true },
         [ Validators.maxLength(200) ]
       ),
       userName: new FormControl(
-        this.user?.userName,
+        user?.userName,
         [ Validators.required, Validators.maxLength(200) ]
       ),
       email: new FormControl(
-        { value: this.user?.email, disabled: this.user?.notificationsType !== notifycationTypeId.email },
+        { value: user?.email, disabled: user?.notificationsType !== notifycationTypeId.email },
         [
           Validators.required,
           Validators.minLength(4),
@@ -51,7 +59,7 @@ export class SettingsFormComponent implements OnInit, OnDestroy {
         ]
       ),
       phone: new FormControl(
-        { value: this.user?.phone, disabled: this.user?.notificationsType !== notifycationTypeId.phone },
+        { value: user?.phone, disabled: user?.notificationsType !== notifycationTypeId.phone },
         [
           Validators.required,
           Validators.minLength(11),
@@ -60,10 +68,10 @@ export class SettingsFormComponent implements OnInit, OnDestroy {
           forbittenFieldValidator(/[0-9]/)
         ]
       ),
-      notifications: new FormControl(this.user?.notifications),
-      notificationsType: new FormControl(this.user?.notificationsType)
+      notifications: new FormControl(user?.notifications),
+      notificationsType: new FormControl(user?.notificationsType)
     })
-    this.showNotifycationsWays = Boolean(this.user?.notifications);
+    this.showNotifycationsWays = Boolean(user?.notifications);
     this.createFormListeners()
   }
 
@@ -79,12 +87,19 @@ export class SettingsFormComponent implements OnInit, OnDestroy {
     return this.form.get('phone');
   }
 
+  get valid(): boolean {
+    return this.form.valid;
+  }
+
+  get disableCancel(): boolean {
+    return !this.form.touched;
+  }
+
   createFormListeners(): void {
     this.notificationsSubscription = this.form.controls.notifications.valueChanges.subscribe(value => {
       this.showNotifycationsWays = value;
     });
     this.notificationsTypeSubscription = this.form.controls.notificationsType.valueChanges.subscribe(value => {
-      console.log('test', value)
       switch (value) {
         case notifycationTypeId.email:
           this.form.controls.email.enable();
@@ -100,16 +115,26 @@ export class SettingsFormComponent implements OnInit, OnDestroy {
   }
   
   submit(): void {
-    console.log('save user');
     this.userService.saveUser({
       id: this.user?.id,
       options: this.user?.options,
       ...this.form.getRawValue()
-    })
+    });
+    
+    if(this.user){
+      this.state.dispatch(new GetUsers());
+      this.state.dispatch(new GetUser(this.user.id));
+    }
+    this.showSuccess()
+    this.createForm(this.form.getRawValue())
   }
 
   reset(): void {
     this.createForm()
+  }
+
+  showSuccess(): void {
+    this.toastr.success('Настройки успешно сохранены', '',);
   }
 
   ngOnDestroy(): void {

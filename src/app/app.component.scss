@@ -13,6 +13,14 @@
             text-decoration: none;
         }
     }
+
+    .toast-container{
+        top: 4rem;
+    }
+
+    ::-webkit-scrollbar {
+        width: 3px;
+    }
 }
 
 html, body, .body {

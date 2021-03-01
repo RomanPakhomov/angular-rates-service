@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
-import { notifycationTypeId, UserModel } from "../types/user.type";
+import { notifycationTypeId, UserModel, UserOptionModel } from "../types/user.type";
 
 
 @Injectable()
@@ -24,7 +24,12 @@ export class UserService {
             phone: '89390567708',
             notifications: true,
             notificationsType: notifycationTypeId.email,
-            options: [1]
+            options: [
+                {
+                    id: 1,
+                    startDate: '28.01.2021'
+                }
+            ]
         },
         {
             id: 1,
@@ -34,7 +39,16 @@ export class UserService {
             phone: '89390567709',
             notifications: true,
             notificationsType: notifycationTypeId.phone,
-            options: [1,2]
+            options: [
+                {
+                    id: 2,
+                    startDate: '28.01.2021'
+                },
+                {
+                    id: 3,
+                    startDate: '28.01.2021'
+                }
+            ]
         },
         {
             id: 2,
@@ -44,7 +58,66 @@ export class UserService {
             phone: '89390567710',
             notifications: true,
             notificationsType: notifycationTypeId.email,
-            options: [2,3,4]
+            options: [
+                {
+                    id: 1,
+                    startDate: '28.01.2021'
+                },
+                {
+                    id: 2,
+                    startDate: '28.01.2021'
+                },
+                {
+                    id: 4,
+                    startDate: '28.01.2021'
+                }
+            ]
+        },
+        {
+            id: 3,
+            fullName: 'Аникина Екатерина Александровна',
+            userName: 'aekaterina',
+            email: 'aekaterina@gmail.com',
+            phone: '89390567710',
+            notifications: true,
+            notificationsType: notifycationTypeId.email,
+            options: [
+                {
+                    id: 1,
+                    startDate: '28.01.2021'
+                },
+                {
+                    id: 2,
+                    startDate: '28.01.2021'
+                },
+                {
+                    id: 4,
+                    startDate: '28.01.2021'
+                }
+            ]
+        },
+        {
+            id: 4,
+            fullName: 'Аникина Екатерина Александровна',
+            userName: 'aekaterina',
+            email: 'aekaterina@gmail.com',
+            phone: '89390567710',
+            notifications: true,
+            notificationsType: notifycationTypeId.email,
+            options: [
+                {
+                    id: 1,
+                    startDate: '28.01.2021'
+                },
+                {
+                    id: 2,
+                    startDate: '28.01.2021'
+                },
+                {
+                    id: 4,
+                    startDate: '28.01.2021'
+                }
+            ]
         }
     ];
 
@@ -77,7 +150,7 @@ export class UserService {
             if(user.id === userId){
                 return {
                     ...user,
-                    options: user.options.filter(option => option !== optionId)
+                    options: user.options.filter(option => option.id !== optionId)
                 }
             }
             return user;
@@ -85,7 +158,7 @@ export class UserService {
         this.saveUsersToStorage(updatedUsers);
     }
 
-    saveuserOptions(userId: number, optionsId: number[]): void {
+    saveuserOptions(userId: number, optionsId: UserOptionModel[]): void {
         const users = this.getUsersFromStorage();
         const updatedUsers = users.map(user => {
             if(user.id === userId){
@@ -100,9 +173,7 @@ export class UserService {
     }
 
     saveUser(user: UserModel): void {
-        console.log(user)
         const users = this.getUsersFromStorage();
-        console.log(users);
         const updatedUsers = users.map(item => {
             if(item.id === user.id){
                 return user
@@ -110,7 +181,6 @@ export class UserService {
                 return item;
             }
         });
-        console.log(updatedUsers);
         this.saveUsersToStorage(updatedUsers);
     }
 

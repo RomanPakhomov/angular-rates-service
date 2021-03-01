@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 import { GetUser, RemoveUserOption, SaveUserOptions } from 'src/app/store/actions/user.actions';
 import { AppState } from 'src/app/store/state/app.state';
@@ -22,6 +23,7 @@ export class MainFormComponent implements OnInit, OnChanges {
   userOptionSet: Set<number> = new Set();
   form: FormGroup;
   optionName: FormControl = new FormControl(null);
+  delete = faTimes;
 
   constructor(private state: Store<AppState>, private formBuilder: FormBuilder) {
     this.form = formBuilder.group({
@@ -48,7 +50,7 @@ export class MainFormComponent implements OnInit, OnChanges {
 
   ngOnChanges(): void {
     if(this.user && this.options){
-      this.userOptionSet = new Set(this.user.options.map(optionId => optionId));
+      this.userOptionSet = new Set(this.user.options.map(option => option.id));
       const selectedOptions: OptionModel[] = [];
       const unselectedOptions: OptionModel[] = [];
       this.options.forEach(option => {

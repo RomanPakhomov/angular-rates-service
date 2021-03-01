@@ -14,7 +14,7 @@
                     <div class="option-action">
                         <div class="option-cost mr-1">{{ option.cost }} руб</div> 
                         <div class="cancel-option" (click)="removeUserOption(option.id)">
-                            x
+                            <fa-icon [icon]="delete" class="sort-icon"></fa-icon>
                         </div>
                     </div>
                 </div>

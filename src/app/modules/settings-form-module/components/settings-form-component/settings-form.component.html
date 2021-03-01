@@ -57,8 +57,8 @@
         </div>
       </div>
       <div class="button-container">
-        <button type="button" (click)="reset()" class="btn btn-danger btn-sm" [disabled]="!form.touched">Отменить изменения</button>
-        <button type="button" (click)="submit()" class="btn btn-success btn-sm">Сохранить</button>
+        <button type="button" (click)="reset()" class="btn btn-danger btn-sm" [disabled]="form.pristine">Отменить изменения</button>
+        <button type="button" (click)="submit()" class="btn btn-success btn-sm" [disabled]="form.invalid">Сохранить</button>
       </div>
     </form>
   </div>

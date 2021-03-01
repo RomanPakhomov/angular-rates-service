@@ -11,5 +11,10 @@ export interface UserModel {
     phone: string;
     notifications: boolean;
     notificationsType: notifycationTypeId;
-    options: number[];
+    options: UserOptionModel[];
+}
+
+export interface UserOptionModel {
+    id: number;
+    startDate: string;
 }

@@ -62,7 +62,7 @@ export class UserEffects {
                 if(user.id === userId){
                     return {
                         ...user,
-                        options: user.options.filter(option => option !== optionId)
+                        options: user.options.filter(option => option.id !== optionId)
                     }
                 }
                 return user;

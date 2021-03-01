@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { selectSelectedUser } from 'src/app/store/selectors/user.selector';
@@ -11,13 +11,9 @@ import { UserModel } from 'src/app/types/user.type';
   styleUrls: ['./settings-form-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SettingsFormPageComponent implements OnInit {
+export class SettingsFormPageComponent {
   user: Observable<UserModel> = this.state.select(selectSelectedUser);
 
   constructor(private state: Store<AppState>) { }
-
-  ngOnInit(): void {
-    console.log('init settings page')
-  }
 
 }

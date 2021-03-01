@@ -1,5 +1,5 @@
 import { Action } from "@ngrx/store";
-import { UserModel } from "src/app/types/user.type";
+import { UserModel, UserOptionModel } from "src/app/types/user.type";
 
 export enum EUserActions {
     getUser = 'getUser',
@@ -42,7 +42,7 @@ export class RemoveUserOption implements Action {
 
 export class SaveUserOptions implements Action {
     public readonly type = EUserActions.saveUserOptions;
-    constructor(public payload: {userId: number, optionsId: number[]}) {}
+    constructor(public payload: {userId: number, optionsId: UserOptionModel[]}) {}
 }
 
 export type UserActions = GetUser

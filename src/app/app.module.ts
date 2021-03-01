@@ -5,16 +5,18 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { ToastrModule } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PipeOptionsSumm } from './pipes/pipe-options-summ.pipe';
 import { OptionService } from './services/option.service';
 import { UserService } from './services/user.service';
 import { OptionEffects } from './store/effects/option.effects';
 import { UserEffects } from './store/effects/user.effects';
 import { appReducers } from './store/reducers/app.reducers';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { appReducers } from './store/reducers/app.reducers';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({ timeOut: 10000 }),
     StoreModule.forRoot(appReducers),
     EffectsModule.forRoot([UserEffects, OptionEffects]),
     StoreRouterConnectingModule.forRoot({stateKey: 'router'}),
