@@ -15,6 +15,7 @@ export class UserListComponent implements OnInit {
   @Input() users: UserModel[] | null = null;
   @Input() options: OptionModel[] | null = null;
   optionsMap: Map<number, OptionModel> | null = null;
+  selectedUserId: number = 0;
   value = 0;
 
   constructor(private state: Store<AppState>) { }
@@ -28,7 +29,12 @@ export class UserListComponent implements OnInit {
     }
   }
 
+  selected(id: number): boolean {
+    return this.selectedUserId === id
+  }
+
   selectUser(id: number): void {
+    this.selectedUserId = id;
     this.state.dispatch(new GetUser(id));
   }
 

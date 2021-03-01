@@ -1,7 +1,7 @@
 <div class="user-list">
     <div class="user-list-card">
         <div class="card-body">
-            <div *ngFor="let user of users" class="card mb-2 user-item" (click)="selectUser(user.id)">
+            <div *ngFor="let user of users" class="card user-item" (click)="selectUser(user.id)" [class.active]="selected(user.id)">
                 <div class="card-body">
                     <div class="row no-gutters">
                         <div class="col-12 mb-2">{{ user.fullName }}</div>
