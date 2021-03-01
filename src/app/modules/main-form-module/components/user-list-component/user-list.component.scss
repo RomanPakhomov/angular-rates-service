@@ -11,4 +11,14 @@
         border-radius: 0.25rem;
         overflow-y: scroll;
     }
+
+    .card{
+        cursor: pointer;
+    }
+
+    .active{
+        .card-body{
+            background-color: #e8e8e8;
+        }
+    }
 }

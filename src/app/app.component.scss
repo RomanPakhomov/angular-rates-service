@@ -1,7 +1,10 @@
 ::ng-deep {
-    html, body, .body {
-        height: 100% !important;
+    
+    body{
+        background: #F5F5F5;  
     }
+
+    
 
     .card-body{
         padding: 0.5rem;
@@ -28,8 +31,13 @@
     }
 }
 
-.body{
-    background: #F5F5F5;
-    padding-top: 4rem;
-    height: 100%;
+.content{
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+}
+
+.footer{
+    background-color: #343a40 !important;
+    color: #efefef;
+    padding: 1rem
 }
