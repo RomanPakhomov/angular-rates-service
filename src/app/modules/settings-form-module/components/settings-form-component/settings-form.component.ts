@@ -22,7 +22,6 @@ export class SettingsFormComponent implements OnInit, OnDestroy {
   notificationsSubscription: Subscription | null = null;
   notificationsTypeSubscription: Subscription | null = null;
   showNotifycationsWays: boolean = false;
-  disabledCancel: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -85,14 +84,6 @@ export class SettingsFormComponent implements OnInit, OnDestroy {
 
   get phone(): AbstractControl | null {
     return this.form.get('phone');
-  }
-
-  get valid(): boolean {
-    return this.form.valid;
-  }
-
-  get disableCancel(): boolean {
-    return !this.form.touched;
   }
 
   createFormListeners(): void {

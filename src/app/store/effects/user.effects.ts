@@ -75,13 +75,13 @@ export class UserEffects {
         ofType<SaveUserOptions>(EUserActions.saveUserOptions),
         map(action => action.payload),
         withLatestFrom(this.store.pipe(select(selectUserList))),
-        switchMap(([{ userId, optionsId }, users]) => {
-            this.userService.saveuserOptions(userId, optionsId);
+        switchMap(([{ userId, options }, users]) => {
+            this.userService.saveUserOptions(userId, options);
             const updatedUsers = users.map(user => {
                 if(user.id === userId){
                     return {
                         ...user,
-                        options: optionsId
+                        options: options
                     }
                 }
                 return user

@@ -158,13 +158,13 @@ export class UserService {
         this.saveUsersToStorage(updatedUsers);
     }
 
-    saveuserOptions(userId: number, optionsId: UserOptionModel[]): void {
+    saveUserOptions(userId: number, options: UserOptionModel[]): void {
         const users = this.getUsersFromStorage();
         const updatedUsers = users.map(user => {
             if(user.id === userId){
                 return {
                     ...user,
-                    optionsId
+                    options
                 }
             }
             return user;

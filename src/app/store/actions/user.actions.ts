@@ -42,7 +42,7 @@ export class RemoveUserOption implements Action {
 
 export class SaveUserOptions implements Action {
     public readonly type = EUserActions.saveUserOptions;
-    constructor(public payload: {userId: number, optionsId: UserOptionModel[]}) {}
+    constructor(public payload: {userId: number, options: UserOptionModel[]}) {}
 }
 
 export type UserActions = GetUser
