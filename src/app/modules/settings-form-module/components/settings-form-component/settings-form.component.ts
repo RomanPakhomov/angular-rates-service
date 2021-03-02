@@ -125,7 +125,7 @@ export class SettingsFormComponent implements OnInit, OnDestroy {
   }
 
   showSuccess(): void {
-    this.toastr.success('Настройки успешно сохранены', '',);
+    this.toastr.success('Настройки успешно сохранены', '');
   }
 
   ngOnDestroy(): void {

@@ -16,7 +16,6 @@ import { UserService } from './services/user.service';
 import { OptionEffects } from './store/effects/option.effects';
 import { UserEffects } from './store/effects/user.effects';
 import { appReducers } from './store/reducers/app.reducers';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -26,7 +25,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot({ timeOut: 10000 }),
+    ToastrModule.forRoot({ timeOut: 3000, preventDuplicates: true }),
     StoreModule.forRoot(appReducers),
     EffectsModule.forRoot([UserEffects, OptionEffects]),
     StoreRouterConnectingModule.forRoot({stateKey: 'router'}),

@@ -7,6 +7,7 @@ import { MainFormPageComponent } from './components/main-form-page/main-form-pag
 import { PipeOptionsSumm } from 'src/app/pipes/pipe-options-summ.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { PipeDate } from 'src/app/pipes/pipe-date.pipe';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     UserListComponent,
     MainFormPageComponent,
     PipeOptionsSumm,
+    PipeDate
   ],
   imports: [
     CommonModule,

@@ -8,7 +8,7 @@
             <div class="option-list">
                 <div *ngFor="let option of filteredSelectedOptions" class="option">
                     <div class="option-description">
-                        <div class="date mr-1">{{ option.startDate }}</div>
+                        <div class="date mr-1">{{ option.startDate | pipeDate }}</div>
                         <div class="option-title mr-1">{{ option.title }}</div>
                     </div>
                     <div class="option-action">
