@@ -21,16 +21,16 @@
         </div>
       </div>
       <div class="row no-gutters mb-4">
-        <div class="col-4">
+        <div class="col-md-4 col-sm-12 mb-4">
           <div class="form-check">
             <input formControlName="notifications" type="checkbox" id="notification" class="form-check-input notification">
             <label class="form-check-label" for="notification">Оповещения</label>
           </div>
         </div>
-        <div *ngIf="showNotifycationsWays" class="col-8">
+        <div *ngIf="showNotifycationsWays" class="col-md-8 col-sm-12">
           <div class="row no-gutters mb-2">
             <div class="col-4">
-              <input formControlName="notificationsType" name="notificationsType" value="email" type="radio" class="email mr-1">
+              <input formControlName="notificationsType" name="notificationsType" value="email" type="radio" class="email mr-1" id="email">
               <label for="email">Email</label>
             </div>
             <div class="col-8">
@@ -43,7 +43,7 @@
           </div>
           <div class="row no-gutters mb-2">
             <div class="col-4">
-              <input formControlName="notificationsType" name="notificationsType" value="phone" type="radio" class="phone mr-1">
+              <input formControlName="notificationsType" name="notificationsType" value="phone" type="radio" class="phone mr-1" id="phone">
               <label for="phone">Телефон</label>
             </div>
             <div class="col-8">
@@ -58,7 +58,7 @@
       </div>
       <div class="button-container">
         <button type="button" (click)="reset()" class="btn btn-danger btn-sm" [disabled]="form.pristine">Отменить изменения</button>
-        <button type="button" (click)="submit()" class="btn btn-success btn-sm" [disabled]="form.invalid">Сохранить</button>
+        <button type="button" (click)="submit()" class="btn btn-success btn-sm" [disabled]="form.pristine && form.valid">Сохранить</button>
       </div>
     </form>
   </div>

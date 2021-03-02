@@ -4,8 +4,6 @@
         background: #F5F5F5;  
     }
 
-    
-
     .card-body{
         padding: 0.5rem;
         background-color: #fff;
@@ -24,6 +22,11 @@
 
     .toast-container{
         top: 4rem;
+        max-width: 80%;
+
+        div{
+            max-width: 100%;
+        }
     }
 
     ::-webkit-scrollbar {

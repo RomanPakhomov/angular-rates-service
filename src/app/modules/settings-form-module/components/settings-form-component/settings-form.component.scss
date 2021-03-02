@@ -11,5 +11,25 @@
     .button-container{
         display: flex;
         justify-content: space-between;
+        flex-wrap: wrap;
+
+        @media(max-width: 320px){
+            flex-direction: column;
+        }
+    }
+
+    @media(max-width: 320px){
+        [class*="col-"]{
+            min-width: 100%;
+            flex: 0 0 100%;
+        }
+
+        .button-container{
+            flex-direction: column;
+
+            button:first-child{
+                margin-bottom: 0.5rem
+            };
+        }
     }
 }
