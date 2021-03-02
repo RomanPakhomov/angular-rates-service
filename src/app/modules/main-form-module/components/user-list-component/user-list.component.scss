@@ -23,11 +23,13 @@
 
     .card{
         cursor: pointer;
+
+        .card-body{
+            background-color: inherit;
+        }
     }
 
     .active{
-        .card-body{
-            background-color: #e8e8e8;
-        }
+        background-color: #e8e8e8;
     }
 }

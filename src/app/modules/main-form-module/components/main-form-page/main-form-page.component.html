@@ -1,8 +1,8 @@
 <div class="row no-gutters main-page">
-    <div class="col-md-4 col">
+    <div class="col-md-4 mb-4">
         <app-user-list [users]="users | async" [options]="options | async"></app-user-list>
     </div>
-    <div class="col-md-8 col">
+    <div class="col-md-8 mb-2">
         <app-main-form [options]="options | async" [user]="user | async"></app-main-form>
     </div>
 </div>

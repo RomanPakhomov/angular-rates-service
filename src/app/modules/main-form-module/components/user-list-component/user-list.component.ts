@@ -16,13 +16,14 @@ export class UserListComponent implements OnInit {
   @Input() options: OptionModel[] | null = null;
   optionsMap: Map<number, OptionModel> | null = null;
   selectedUserId: number = 0;
-  value = 0;
 
   constructor(private state: Store<AppState>) { }
 
   ngOnInit(): void {
     if(this.users?.length){
-      this.selectUser(0);
+      const firstUserId = this.users[0].id;
+      this.selectedUserId = firstUserId;
+      this.selectUser(firstUserId);
     }
     if(this.options){
       this.optionsMap = new Map(this.options.map(option => [option.id, option]));

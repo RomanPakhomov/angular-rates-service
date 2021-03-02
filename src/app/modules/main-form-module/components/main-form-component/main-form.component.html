@@ -12,7 +12,7 @@
                         <div class="option-title mr-1">{{ option.title }}</div>
                     </div>
                     <div class="option-action">
-                        <div class="option-cost mr-1">{{ option.cost }} руб</div> 
+                        <div class="option-cost mr-1">{{ option.cost }} <span class="currency">руб</span></div> 
                         <div class="cancel-option" (click)="removeUserOption(option.id)">
                             <fa-icon [icon]="delete" class="icon"></fa-icon>
                         </div>

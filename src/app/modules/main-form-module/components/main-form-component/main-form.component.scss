@@ -17,6 +17,12 @@
         .cancel-option{
             cursor: pointer;
         }
+
+        .date{
+            font-size: 0.6rem;
+            padding-top:0.4rem;
+            color: #808080;
+        }
     }
 }
 .unselected-options{
@@ -33,4 +39,10 @@
         display: flex;
         justify-content: flex-end;
     }
+}
+.option-cost{
+    padding-top: 0.2rem;
+    font-size: 0.8rem;
+    min-width: 40px;
+    text-align: right;
 }
