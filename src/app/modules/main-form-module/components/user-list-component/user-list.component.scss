@@ -1,9 +1,5 @@
 .user-list{
     max-height: 1500px;
-    
-    .user-options{
-        font-size: 0.8rem;
-    }
 
     .user-item{
         margin-bottom: 0.5rem;
@@ -12,8 +8,17 @@
         &:last-child{
             margin-bottom: 0rem;
         }
-    }
 
+        .user-description{
+            display: flex;
+            justify-content: space-between; 
+
+            .user-options{
+                font-size: 0.8rem;
+            }
+        }
+    }
+    
     .user-list-card{
         max-height: 100%;
         border: 1px solid rgba(0, 0, 0, 0.125);

@@ -3,10 +3,12 @@
         <div class="card-body">
             <div *ngFor="let user of users" class="card user-item" (click)="selectUser(user.id)" [class.active]="selected(user.id)">
                 <div class="card-body">
-                    <div class="row no-gutters">
-                        <div class="col-12 mb-2">{{ user.fullName }}</div>
-                        <div class="col-4 pr-1 user-options">услуг: {{ user.options.length }}</div>
-                        <div class="col-8 pl-1 user-options">аб.плата: {{ user.options | pipeOptionsSumm: optionsMap }} руб</div>
+                    <div>
+                        <div>{{ user.fullName }}</div>
+                        <div class="user-description">
+                            <div class="pr-1 user-options">услуг: {{ user.options.length }}</div>
+                            <div class="pl-1 user-options">аб.плата: {{ user.options | pipeOptionsSumm: optionsMap }} руб</div>
+                        </div>
                     </div>
                 </div>
             </div>
